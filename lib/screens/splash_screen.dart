@@ -3,6 +3,7 @@ import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// import 'dart:html';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

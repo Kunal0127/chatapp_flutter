@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:chatapp/constants/firebase_constants.dart';
-import 'package:chatapp/models/chatuser.dart';
+import 'package:chatapp/models/chat_user.dart';
 import 'package:chatapp/providers/home_provider.dart';
 import 'package:chatapp/screens/chat_page.dart';
 import 'package:chatapp/screens/login_screen.dart';
@@ -60,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
     authProvider = context.read<AuthProvider>();
     homeProvider = context.read<HomeProvider>();
 
-    if (authProvider.getFirebaseUserid()!.isNotEmpty == true) {
-      currentUserId = authProvider.getFirebaseUserid()!;
+    if (authProvider.getFirebaseUserId()!.isNotEmpty == true) {
+      currentUserId = authProvider.getFirebaseUserId()!;
     } else {
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -119,7 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       return ListView.separated(
                         shrinkWrap: true,
                         itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) => buildItem(context, snapshot.data?.docs[index]),
+                        itemBuilder: (context, index) =>
+                            buildItem(context, snapshot.data?.docs[index]),
                         controller: scrollController,
                         separatorBuilder: (BuildContext context, int index) =>
                             const Divider(),
@@ -204,7 +205,15 @@ class _HomeScreenState extends State<HomeScreen> {
               KeyboardUtils.closeKeyboard(context);
             }
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ChatPage()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                    peerId: userChat.id,
+                    peerAvatar: userChat.photoUrl,
+                    peerNickname: userChat.displayName,
+                    userAvatar: firebaseAuth.currentUser!.photoURL!,
+                  ),
+                ));
           },
           child: ListTile(
             leading: userChat.photoUrl.isNotEmpty

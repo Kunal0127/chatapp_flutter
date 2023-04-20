@@ -1,5 +1,5 @@
 import 'package:chatapp/constants/firebase_constants.dart';
-import 'package:chatapp/models/chatuser.dart';
+import 'package:chatapp/models/chat_user.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +30,7 @@ class AuthProvider extends ChangeNotifier {
       required this.firebaseFirestore,
       required this.prefs});
 
-  String? getFirebaseUserid() {
+  String? getFirebaseUserId() {
     return prefs.getString(FirestoreConstants.id);
   }
 
